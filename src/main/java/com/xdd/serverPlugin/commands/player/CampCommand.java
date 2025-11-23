@@ -5,6 +5,7 @@ import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.TextUtils;
 import com.xdd.serverPlugin.cache.AdminActionsManager;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
+import com.xdd.serverPlugin.cuboids.camp.CampLevels;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
 
 import com.xdd.serverPlugin.permissions.Perms;
@@ -50,7 +51,7 @@ public class CampCommand {
         Camp camp = CampAdminService.findCamp(ownerNick, sender);
         if(camp == null) return;
 
-        int maxLvl = ConstantValues.borderSizeByLevel.length;
+        int maxLvl = CampLevels.values().length;
         if(maxLvl < lvl){
             sender.sendMessage(Component.text("Podano poziom który nie mieści się w zakresie 1 - %d (nic się nie zmieniło...)".formatted(maxLvl)
             ).color(TextColor.color(0xFF7070)));

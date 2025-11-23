@@ -1,6 +1,7 @@
 package com.xdd.serverPlugin.cuboids.camp;
 
 import com.xdd.serverPlugin.ConstantValues;
+import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.BorderUtils;
 import com.xdd.serverPlugin.cuboids.Cuboid;
 import com.xdd.serverPlugin.cuboids.SimpleCuboid;
@@ -29,7 +30,7 @@ public class Camp extends Cuboid {
 
     private final int campID;
     private final UUID ownerUUID;
-    @Setter private int campLevel;
+    @Setter private CampLevels campLevel;
     @Setter private WorldBorder currentBorder;
     private final String ownerName;
     @Setter private List<String> permissions = new ArrayList<>();
@@ -46,7 +47,12 @@ public class Camp extends Cuboid {
         super(upperCorner, bottomCorner);
         this.campID = campID;
         this.ownerUUID = ownerUUID;
-        this.campLevel = campLevel;
+        var level = CampLevels.getEnumFromInteger(campLevel);
+        if(level == null) {
+            ServerPlugin.getInstance().getLogger().warning("[Camp] podczas wywoływania konstruktora napotkano błędy poziom obozu %d".formatted(campLevel));
+            level = CampLevels.LEVEL1;
+        }
+        this.campLevel = level;
         this.ownerName = ownerName;
         recalculateWorldBorder();
         this.permissions = permissions;
@@ -57,16 +63,12 @@ public class Camp extends Cuboid {
     public void recalculateWorldBorder(){
          WorldBorder worldBorder = Bukkit.createWorldBorder();
          worldBorder.setCenter(getCenterLocation());
-         int index = campLevel - 1;
 
-         worldBorder.setSize(ConstantValues.borderSizeByLevel[index]);
-         if(worldBorder.getSize() == 0){
-             worldBorder.setSize(15);
-         }
+         worldBorder.setSize(campLevel.getBorderSize());
          worldBorder.setDamageAmount(4);
          worldBorder.setWarningDistance(0);
-
          setCurrentBorder(worldBorder);
+
     }
 
     public boolean isAnyPlayerWithPermissionOnCamp() {
@@ -84,7 +86,8 @@ public class Camp extends Cuboid {
 
     public void changeLevel(int newLevel){
          BorderUtils.clearBarrierBlocks(this);
-         campLevel = newLevel;
+         campLevel = CampLevels.getEnumFromInteger(newLevel);
+         if(campLevel == null) campLevel = CampLevels.LEVEL1;
          BorderUtils.putBarrierBlocks(this);
          recalculateWorldBorder();
          Player player = Bukkit.getPlayer(ownerUUID);
@@ -107,7 +110,7 @@ public class Camp extends Cuboid {
     void spawnNPCs(){
         var loc = this.getSpawnLocation().clone().add(0,0,6);
         loc.setYaw(180);
-        MythicMob npc = MythicBukkit.inst().getMobManager().getMythicMob("NPC_Mayor").orElse(null);
+        MythicMob npc = MythicBukkit.inst().getMobManager().getMythicMob(MayorNPC.npcKey).orElse(null);
         if(npc != null){
             ActiveMob activeNpc = npc.spawn(BukkitAdapter.adapt(loc), 1);
             activeNpc.setDespawnMode(DespawnMode.PERSISTENT);
@@ -117,13 +120,10 @@ public class Camp extends Cuboid {
     }
 
     public SimpleCuboid getSimpleCuboidFromCurrentLevel() {
-        int index = campLevel - 1;
-        var sizes = ConstantValues.borderSizeByLevel;
 
-        double radius = (double) sizes[index] / 2;
+        double radius = (double) campLevel.getBorderSize() / 2;
 
         Location center = getCenterBlockLocation().clone();
-
         Location bottomCorner = new Location(
                 ServerWorlds.CAMP_WORLD.getWorld(),
                 center.x() - radius,

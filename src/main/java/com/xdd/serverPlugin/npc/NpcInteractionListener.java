@@ -21,7 +21,7 @@ public class NpcInteractionListener implements Listener {
 
     }
 
-    NPC isCampNPC(Entity entity, Player player){
+    private NPC isCampNPC(Entity entity, Player player){
         var camp = campManager.getPlayerCamp(player);
         if(camp == null) return null;
 
