@@ -1,0 +1,12 @@
+name: serverPlugin
+version: '1.0-SNAPSHOT'
+main: com.xdd.serverPlugin.ServerPlugin
+api-version: '1.21'
+authors: [ voxsledderman ]
+
+softdepend:
+  - PlaceholderAPI
+  - FastAsyncWorldEdit
+  - Multiverse-Core
+  - MythicMobs
+
