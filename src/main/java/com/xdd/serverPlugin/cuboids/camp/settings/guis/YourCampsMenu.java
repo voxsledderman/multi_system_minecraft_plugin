@@ -53,7 +53,7 @@ public class YourCampsMenu extends Menu {
                             Component.text(" "),
                             MiniMessage.miniMessage().deserialize("<white>Nie należych do żadnego obozu...")
                     )))
-                    .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)::openMenu))
+                    .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
                     .addIngredient('X', new CloseEqItem())
                     .addIngredient('#', GuiUtils.blackGlass)
                     .addIngredient('*', GuiUtils.whiteGlass)
@@ -77,7 +77,7 @@ public class YourCampsMenu extends Menu {
                         "B # < * * * > # ?"
                 )
                 .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
-                .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)::openMenu))
+                .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
                 .addIngredient('X', new CloseEqItem())
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)

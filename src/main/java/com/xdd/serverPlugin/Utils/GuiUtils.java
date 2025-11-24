@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xyz.xenondevs.invui.item.Item;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -14,6 +15,11 @@ public class GuiUtils {
 
     public static Item blackGlass = new SimpleItem(new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE));
     public static Item whiteGlass = new SimpleItem(new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE));
+
+
+    public static final ItemStack farmLevelUpIcon = buildItemWithNormalTooltipAdding("pixelmon-3", Tooltip.RARE);
+    public static final ItemStack campLevelUpIcon = buildItemWithNormalTooltipAdding("star", Tooltip.RARE);
+    public static final ItemStack helperLevelUpIcon = buildItemWithNormalTooltipAdding("pixelmon-8", Tooltip.RARE);
 
     public static final ItemStack settingsIcon = buildCustomItem("settings", Tooltip.UNCOMMON);
     public static final ItemStack upArrow = buildCustomItem("arrow_up", Tooltip.UNCOMMON);
@@ -46,7 +52,7 @@ public class GuiUtils {
         if (itemBuilder == null) {
             return new ItemStack(Material.PAPER);
         }
-        itemBuilder.clone().setTooltipStyle(NamespacedKey.fromString(Tooltip.COMMON.getKey()));
+        itemBuilder.setTooltipStyle(NamespacedKey.fromString(Tooltip.COMMON.getKey()));
         return itemBuilder.build();
     }
     private static ItemStack buildCustomItem(String id, Tooltip tooltip) {
@@ -57,6 +63,15 @@ public class GuiUtils {
         itemBuilder.setTooltipStyle(NamespacedKey.fromString(tooltip.getKey()));
         return itemBuilder.build();
     }
+
+    private static ItemStack buildItemWithNormalTooltipAdding(String id, Tooltip tooltip){
+        ItemStack stack = buildCustomItem(id);
+        ItemMeta meta = stack.getItemMeta();
+        meta.setTooltipStyle(NamespacedKey.fromString(tooltip.getKey()));
+        stack.setItemMeta(meta);
+        return stack;
+    }
+
     public static void playGuiClickSound(Player player){
         player.playSound(player, Sounds.guiClickSoundID, 1.25f,1f);
     }

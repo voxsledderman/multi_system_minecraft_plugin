@@ -5,6 +5,7 @@ import com.xdd.serverPlugin.Utils.ItemUtil;
 import com.xdd.serverPlugin.permissions.CampPerms;
 import com.xdd.serverPlugin.records.UuidNick;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
@@ -75,6 +76,32 @@ public class SpecificItems {
         }
         public static ItemStack prevPageItem(){
             return ItemUtil.addMetaToItemStack(GuiUtils.prevPageIcon.clone(), MiniMessage.miniMessage().deserialize("Przejdź na poprzednią strone"),null);
+        }
+        public static ItemStack farmLvlUpItem(){
+            return ItemUtil.addMetaToItemStack(GuiUtils.farmLevelUpIcon.clone(), MiniMessage.miniMessage().deserialize("<blue>Zwiększ limity farm"),
+                    List.of(
+                            Component.text("Ulepszenie pozwala:").color(TextColor.color(153, 102, 204)),
+                            Component.text(" "),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>zwiększyć limit bloków w farmie"),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>zwiększyć limit żyjących zwierząt")
+                            ));
+        }
+        public static ItemStack campLvlUpItem(){
+            return ItemUtil.addMetaToItemStack(GuiUtils.campLevelUpIcon.clone(), MiniMessage.miniMessage().deserialize("<blue>Ulepsz swój obóz"),
+                    List.of(
+                            Component.text("Ulepszenie zapewnia:").color(TextColor.color(153, 102, 204)),
+                            Component.text(" "),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>zwiększenie granic obozu"),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>odblokowanie nowych funkcji")));
+        }
+        public static ItemStack helpersLvlUpItem(){
+            return ItemUtil.addMetaToItemStack(GuiUtils.helperLevelUpIcon.clone(), MiniMessage.miniMessage().deserialize("<blue>Ulepsz swoich pracowników"),
+                    List.of(
+                            Component.text("Ulepszenie zapewnia:").color(TextColor.color(153, 102, 204)),
+                            Component.text(" "),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>wydajniejszych pracowników"),
+                            MiniMessage.miniMessage().deserialize("<glyph:thunder><white>tańszych pracowników")
+                           ));
         }
     }
 }

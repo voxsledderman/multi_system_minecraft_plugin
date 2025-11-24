@@ -38,7 +38,7 @@ public class PlayerPermMenu extends Menu {
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .addIngredient('X', new CloseEqItem())
-                .addIngredient('B', new ReturnItem(new SettingsCampMenu(getPlugin(), camp, player)::openMenu))
+                .addIngredient('B', new ReturnItem(new SettingsCampMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(GuiUtils.infoIcon))
                 .addIngredient('@', new SimpleItem(GuiUtils.blueCrossIcon))
                 .addIngredient('1', new PlayerItem(camp.getPermissionsPerPlayer(), 1))

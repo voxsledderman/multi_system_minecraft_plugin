@@ -42,7 +42,7 @@ public class MainCampMenu extends Menu {
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .addIngredient('B', new CloseEqItem())
 
-                .addIngredient('U', new ClickableItem(SpecificItems.FromGUI.upgradeCampItem(), new SettingsCampMenu(getPlugin(), camp, player)))
+                .addIngredient('U', new ClickableItem(SpecificItems.FromGUI.upgradeCampItem(), new ChoseUpgradeMenu(getPlugin(), camp, player)))
                 .addIngredient('H', new ClickableItem(SpecificItems.FromGUI.yourCampsItem(), new YourCampsMenu(getPlugin(), player, camp)))
                 .addIngredient('S', new ClickableItem(SpecificItems.FromGUI.settingsCampItem(), new SettingsCampMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(SpecificItems.FromGUI.infoItem(List.of(Component.text(" "),

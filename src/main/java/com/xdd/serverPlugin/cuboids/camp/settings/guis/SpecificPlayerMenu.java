@@ -44,7 +44,7 @@ public class SpecificPlayerMenu extends Menu {
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .addIngredient('X', new CloseEqItem())
-                .addIngredient('B', new ReturnItem(new PlayerPermMenu(getPlugin(), camp, player)::openMenu))
+                .addIngredient('B', new ReturnItem(new PlayerPermMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(GuiUtils.infoIcon))
                 .addIngredient('@', new SimpleItem(GuiUtils.blueCrossIcon, click -> {
                     camp.getPermissionsPerPlayer().remove(uuidNick);

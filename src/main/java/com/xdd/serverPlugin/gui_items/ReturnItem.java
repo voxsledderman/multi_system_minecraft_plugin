@@ -1,5 +1,6 @@
 package com.xdd.serverPlugin.gui_items;
 
+import com.xdd.serverPlugin.Menu;
 import com.xdd.serverPlugin.SpecificItems;
 import com.xdd.serverPlugin.Utils.GuiUtils;
 import org.bukkit.entity.Player;
@@ -8,15 +9,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
 
-import java.util.function.Consumer;
 
 public class ReturnItem extends SimpleItem {
 
-    private final Consumer<Player> onReturn;
+    private final Menu menu;
 
-    public ReturnItem(@NotNull Consumer<Player> onReturn) {
+    public ReturnItem(@NotNull Menu menu) {
         super(SpecificItems.FromGUI.returnItem());
-        this.onReturn = onReturn;
+        this.menu = menu;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class ReturnItem extends SimpleItem {
         super.handleClick(clickType, player, event);
 
         GuiUtils.playGuiClickSound(player);
-        onReturn.accept(player);
+        menu.openMenu(player);
     }
 }

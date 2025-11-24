@@ -52,7 +52,7 @@ public class SettingsCampMenu extends Menu {
                 .addIngredient('I', new PermissionItem(camp, CampPerms.GlobalPerms.PICKUP_ITEMS))
                 .addIngredient('V', new PermissionItem(camp, CampPerms.GlobalPerms.SEND_VISIT_REQUEST))
 
-                .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)::openMenu))
+                .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(SpecificItems.FromGUI.infoItem(List.of(
                         Component.text(" "), MiniMessage.miniMessage().deserialize("<white>tutaj możesz zarządzać"),
                         MiniMessage.miniMessage().deserialize("<white>permisjami odwiedzających"),

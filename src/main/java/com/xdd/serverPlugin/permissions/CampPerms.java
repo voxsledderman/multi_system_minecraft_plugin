@@ -81,7 +81,7 @@ public class CampPerms {
                 return List.of(
                         MiniMessage.miniMessage().deserialize("<gold>Pozwala na:"),
                         Component.text(" "),
-                        MiniMessage.miniMessage().deserialize("<glyph:thunder><white>Zadawanie obrażeń zwierzętą"),
+                        MiniMessage.miniMessage().deserialize("<glyph:thunder><white>Zadawanie obrażeń zwierzętom"),
                         MiniMessage.miniMessage().deserialize("<gray>aktywna dla każdego!")
                         );
             }
