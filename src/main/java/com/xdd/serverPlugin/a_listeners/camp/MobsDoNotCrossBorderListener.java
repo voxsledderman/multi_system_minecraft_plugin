@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class MobsDoNotCrossBorderListener implements Listener {
     private final CampManager campManager = plugin.getCampManager();
 
     @EventHandler
-    void onPathFind(EntityPathfindEvent e) {
+    void onPathFind(EntityPathfindEvent e) throws SQLException {
         if (!(e.getEntity() instanceof Mob mob)) return;
         World world = mob.getWorld();
         if (!world.equals(ServerWorlds.CAMP_WORLD.getWorld())) return;

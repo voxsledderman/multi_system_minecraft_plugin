@@ -14,6 +14,8 @@ public class TestCommand {
 
     @Execute
     void test(@Context Player player){
-
+        var ciul = plugin.getCampManager().getPlayerCamp(player).getNpcs();
+        player.sendMessage(ciul.toString());
+        player.sendMessage("dlugość listy: " + ciul.toArray().length);
     }
 }

@@ -1,6 +1,4 @@
 package com.xdd.serverPlugin.commands.player;
-
-import com.xdd.serverPlugin.ConstantValues;
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.TextUtils;
 import com.xdd.serverPlugin.cache.AdminActionsManager;
@@ -22,6 +20,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 
@@ -32,7 +31,7 @@ public class CampCommand {
     private final AdminActionsManager adminActionsManager = plugin.getAdminActionsManager();
 
     @Execute
-    void teleport(@Context Player player) {
+    void teleport(@Context Player player) throws SQLException {
         Camp camp = campManager.getPlayerCamp(player);
 
         if (camp == null) {
@@ -46,7 +45,7 @@ public class CampCommand {
 
     @Execute(name = "setlvl")
     @Permission(Perms.ALLOW_CAMPS_ADMIN_ACTIONS)
-    void setLvl(@Context CommandSender sender, @Arg String ownerNick, @Arg  int lvl){
+    void setLvl(@Context CommandSender sender, @Arg String ownerNick, @Arg  int lvl) throws SQLException {
 
         Camp camp = CampAdminService.findCamp(ownerNick, sender);
         if(camp == null) return;
@@ -63,7 +62,7 @@ public class CampCommand {
     }
     @Execute(name = "delete")
     @Permission(Perms.ALLOW_CAMPS_ADMIN_ACTIONS)
-    void delete(@Context Player player, @Arg int campID){
+    void delete(@Context Player player, @Arg int campID) throws SQLException {
         if(campID < 0){
             Camp camp = adminActionsManager.getPendingCampDeleteConfirmations().get(campID);
             if(camp == null){
@@ -85,7 +84,7 @@ public class CampCommand {
     }
     @Execute(name = "id")
     @Permission(Perms.ALLOW_CAMPS_ADMIN_ACTIONS)
-    void getOwner(@Context CommandSender sender, @Arg String ownerName){
+    void getOwner(@Context CommandSender sender, @Arg String ownerName) throws SQLException {
         Camp camp = CampAdminService.findCamp(ownerName, sender);
         if(camp == null) return;
 

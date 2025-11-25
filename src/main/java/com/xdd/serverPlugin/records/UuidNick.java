@@ -10,4 +10,8 @@ public record UuidNick(UUID uuid, String nick) {
         return new UuidNick(player.getUniqueId(), player.getName());
     }
 
+    @Override
+    public String toString(){
+        return uuid.toString() + ":" + nick;
+    }
 }

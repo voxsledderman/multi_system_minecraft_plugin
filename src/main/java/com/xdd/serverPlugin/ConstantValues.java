@@ -12,7 +12,7 @@ public class ConstantValues {
 
     public static final int CAMP_HEIGHT = 64;
     public static final int CAMP_DOWN_HEIGHT = 40;
-    public static final String[] zombieKeys = {"zc_walker","zc_runner", "zc_scavenger", "zc_spitter"};
+    public static final String[] zombieKeys = {"zc_walker","zc_runner", "zc_scavenger"};
 
     public static final NamespacedKey keyForMobCampID = new NamespacedKey(ServerPlugin.getInstance(),"camp_id");
 

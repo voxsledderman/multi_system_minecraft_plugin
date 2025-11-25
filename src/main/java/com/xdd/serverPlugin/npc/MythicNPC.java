@@ -2,7 +2,6 @@ package com.xdd.serverPlugin.npc;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 
-
 public abstract class MythicNPC extends NPC {
 
 

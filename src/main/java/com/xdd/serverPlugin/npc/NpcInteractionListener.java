@@ -26,6 +26,7 @@ public class NpcInteractionListener implements Listener {
         if(camp == null) return null;
 
         for(NPC npc : camp.getNpcs()){
+            if(npc.getEntity() == null) npc.refreshEntity();
             if(entity.getUniqueId().equals(npc.getEntity().getUniqueId())) return npc;
         }
         return null;

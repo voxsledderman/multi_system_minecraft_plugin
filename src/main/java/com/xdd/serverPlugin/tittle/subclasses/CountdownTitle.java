@@ -89,6 +89,9 @@ public class CountdownTitle extends TitleSender implements Stoppable {
                         if(player.hasPermission(Perms.IGNORE_CAMP_BORDER)){}
                         camp.recalculateWorldBorder();
                         player.setWorldBorder(camp.getCurrentBorder());
+                        camp.spawnNPCs();
+
+                        // TODO: Sprawdzenie przez spawnem czy juz w obozie są jakieś npc
                     }
                 });
 

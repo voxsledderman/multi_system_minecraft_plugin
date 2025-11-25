@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 public class MayorNPC extends MythicNPC {
     public static String npcKey = "NPC_Mayor";
+
     public MayorNPC(Entity entity) {
         super(entity, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON);
     }
@@ -28,5 +29,10 @@ public class MayorNPC extends MythicNPC {
             menu.openMenu(player);
             player.playSound(player, getInteractSound(), 1f,1.2f);
         };
+    }
+
+    @Override
+    public String getKey() {
+        return npcKey;
     }
 }

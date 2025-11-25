@@ -22,7 +22,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
 import java.util.*;
 
 @Getter
@@ -31,23 +33,22 @@ public class Camp extends Cuboid {
     private final int campID;
     private final UUID ownerUUID;
     @Setter private CampLevels campLevel;
-    @Setter private WorldBorder currentBorder;
+    @Setter private transient WorldBorder currentBorder;
     private final String ownerName;
     @Setter private List<String> permissions = new ArrayList<>();
     @Setter private Map<UuidNick, List<String>> permissionsPerPlayer = new HashMap<>();
     private final Location spawnLocation;
     private final List<NPC> npcs = new ArrayList<>();
-    @Setter  private boolean hasTriggeredSpawn = false;
+    @Setter private transient boolean hasTriggeredSpawn = false;
 
 
      public Camp(Location upperCorner, Location bottomCorner,
-                 int campID, UUID ownerUUID, String ownerName , int campLevel, List<String> permissions) {
-
+                 int campID, UUID ownerUUID, String ownerName , int campLevel, List<String> permissions, Map<UuidNick, List<String>> permissionsPerPlayer) {
 
         super(upperCorner, bottomCorner);
         this.campID = campID;
         this.ownerUUID = ownerUUID;
-        var level = CampLevels.getEnumFromInteger(campLevel);
+         var level = CampLevels.getEnumFromInteger(campLevel);
         if(level == null) {
             ServerPlugin.getInstance().getLogger().warning("[Camp] podczas wywoływania konstruktora napotkano błędy poziom obozu %d".formatted(campLevel));
             level = CampLevels.LEVEL1;
@@ -57,7 +58,7 @@ public class Camp extends Cuboid {
         recalculateWorldBorder();
         this.permissions = permissions;
         spawnLocation = getCenterLocation().clone().subtract(0, (double) (ConstantValues.CENTER_CAMP_Y - ConstantValues.CAMP_DOWN_HEIGHT) / 2, 0);
-
+        this.permissionsPerPlayer = permissionsPerPlayer;
     }
     
     public void recalculateWorldBorder(){
@@ -84,7 +85,7 @@ public class Camp extends Cuboid {
         return false;
     }
 
-    public void changeLevel(int newLevel){
+    public void changeLevel(int newLevel) throws SQLException {
          BorderUtils.clearBarrierBlocks(this);
          campLevel = CampLevels.getEnumFromInteger(newLevel);
          if(campLevel == null) campLevel = CampLevels.LEVEL1;
@@ -94,29 +95,39 @@ public class Camp extends Cuboid {
          if(player != null){
             player.setWorldBorder(currentBorder);
         }
-         //TODO: Zapis do bazy danych, zmiana elementow wizualnych
+         ServerPlugin.getInstance().getCampDao().save(this);
+         //TODO: zmiana elementow wizualnych
     }
-    public void deleteCamp(CampManager campManager){
+    public void deleteCamp(@NotNull CampManager campManager) throws SQLException {
          campManager.unregisterPlayerCamp(ownerUUID);
          for(Player player : getPlayersInCuboid()){
              player.teleport(ServerLocations.SPAWN.getLocation());
          }
          unloadCuboidChunks();
-
-         //TODO: Usuwanie rekordu z bazy danych
-
+         ServerPlugin.getInstance().getCampDao().deletePermanently(this);
     }
 
-    void spawnNPCs(){
+    public void spawnNPCs(){
         var loc = this.getSpawnLocation().clone().add(0,0,6);
         loc.setYaw(180);
         MythicMob npc = MythicBukkit.inst().getMobManager().getMythicMob(MayorNPC.npcKey).orElse(null);
-        if(npc != null){
+        if(npc != null && !isNpcSpawned(MayorNPC.npcKey)){
             ActiveMob activeNpc = npc.spawn(BukkitAdapter.adapt(loc), 1);
-            activeNpc.setDespawnMode(DespawnMode.PERSISTENT);
+            activeNpc.setDespawnMode(DespawnMode.CHUNK);
             System.out.println(activeNpc);
             npcs.add(new MayorNPC(BukkitAdapter.adapt(activeNpc.getEntity())));
         }
+    }
+    private boolean isNpcSpawned(String key){
+        for (ActiveMob activeMob : MythicBukkit.inst().getMobManager().getActiveMobs()) {
+            Location location = BukkitAdapter.adapt(activeMob.getLocation());
+            if(!location.getWorld().equals(ServerWorlds.CAMP_WORLD.getWorld()) || !this.contains(location)) continue;
+            String currentMobName = activeMob.getType().getInternalName();
+            if (currentMobName.equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public SimpleCuboid getSimpleCuboidFromCurrentLevel() {

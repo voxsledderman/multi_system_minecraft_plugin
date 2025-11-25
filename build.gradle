@@ -64,8 +64,9 @@ dependencies {
 
     compileOnly 'org.mvplugins.multiverse.core:multiverse-core:5.0.0-SNAPSHOT'
     compileOnly("io.lumine:Mythic-Dist:5.6.1")  // mythicmobs
-
     compileOnly ("lol.pyr:znpcsplus-api:2.1.0-SNAPSHOT") // znpcs
+
+    implementation("com.j256.ormlite:ormlite-jdbc:6.1") //ORMLight
 
 
 

@@ -70,7 +70,7 @@ public class ChunkLoadEventForSpawningMob implements Listener {
                         }
 
                         int drop = random.nextInt(11);
-                        boolean isCommon = drop < 8;
+                        boolean isCommon = drop < 3;
                         int index = isCommon ? 0 : random.nextInt(ConstantValues.zombieKeys.length);
                         MythicMob mob = MythicBukkit.inst().getMobManager()
                                 .getMythicMob(ConstantValues.zombieKeys[index])
