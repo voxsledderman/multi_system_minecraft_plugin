@@ -21,7 +21,6 @@ public class CampSerializer {
 
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(Location.class, new LocationAdapter())
-//            .registerTypeAdapter(NPC.class, new NpcAdapter())
             .registerTypeAdapter(UuidNick.class, new UuidNickAdapter())
             .create();
 
@@ -54,6 +53,5 @@ public class CampSerializer {
                 personalPerms
         );
     }
-
 }
 

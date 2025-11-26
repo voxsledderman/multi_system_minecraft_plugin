@@ -14,7 +14,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        cacheManager.loadPlayerDataAsync(player);
+        cacheManager.loadDataAsync(player);
         player.teleport(ServerLocations.SPAWN.getLocation());
 
     }

@@ -10,6 +10,7 @@ import com.xdd.serverPlugin.basicListeners.PlayerLeaveListener;
 import com.xdd.serverPlugin.cache.*;
 import com.xdd.serverPlugin.commands.admin.TestCommand;
 import com.xdd.serverPlugin.commands.player.CampCommand;
+import com.xdd.serverPlugin.commands.player.MoneyCommand;
 import com.xdd.serverPlugin.cuboids.CampListener;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
 import com.xdd.serverPlugin.cuboids.camp.LocationSaveManager;
@@ -80,7 +81,8 @@ public final class ServerPlugin extends JavaPlugin {
                         new GenerateCampsCommand(),
                         new TeleportCommand(),
                         new CampCommand(),
-                        new TestCommand()
+                        new TestCommand(),
+                        new MoneyCommand()
                 )
                 .message(LiteMessages.MISSING_PERMISSIONS, permission -> "§cNie masz permisji na wykonanie tej komendy!")
                 .message(LiteMessages.INVALID_USAGE, invalidUsage ->  "§cNiepoprawne użycie komendy!")

@@ -4,6 +4,7 @@ import com.xdd.serverPlugin.ConstantValues;
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.BorderUtils;
 import com.xdd.serverPlugin.cuboids.SimpleCuboid;
+import com.xdd.serverPlugin.database.dao.CampDao;
 import com.xdd.serverPlugin.permissions.CampPerms;
 import lombok.Getter;
 import org.bukkit.Location;
@@ -34,7 +35,11 @@ public class CampManager {
         camp.spawnNPCs();
         ServerPlugin.getInstance().getLocationSaveManager().setUsed(result.getKey(), true);
         BorderUtils.putBarrierBlocks(camp);
-        plugin.getCampDao().save(camp);
+        CampDao campDao = plugin.getCampDao();
+        if(campDao.playerHasCamp(player)){
+            return campDao.getCampByUuid(player.getUniqueId());
+        }
+        campDao.save(camp);
         return camp;
     }
 

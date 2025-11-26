@@ -3,15 +3,19 @@ package com.xdd.serverPlugin.cache;
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
+import com.xdd.serverPlugin.database.Loader;
 import com.xdd.serverPlugin.database.data.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class CacheManager {
-
+    private final Map<UUID, PlayerData> playerDataMap = new HashMap<>();
     private final ServerPlugin plugin;
     private final CampManager campManager;
 
@@ -29,17 +33,26 @@ public class CacheManager {
             campManager.getLastlyCheckedCamp().remove(player.getUniqueId());
         }
     }
-    public void loadPlayerDataAsync(Player player){
-        final UUID uuid = player.getUniqueId();
+
+    public void loadDataAsync(Player player){
         Bukkit.getScheduler().runTaskAsynchronously(plugin, asyncTask -> {
             try {
-                Camp camp = plugin.getCampDao().getCampByUuid(uuid);
-                PlayerData playerData = plugin.getPlayerDao().getPlayerData(player); //TODO: dodaj playerDate, dodaj handlera dla wyjątku
-                if(camp != null) campManager.registerPlayerCamp(player, camp);
+                Loader.loadCampData(player, plugin);
+                Loader.loadPlayerData(player, plugin);
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void addToDataMap(@NotNull Player player, PlayerData data){
+        playerDataMap.put(player.getUniqueId(), data);
+    }
+    public void removeFromDataMap(@NotNull Player player){
+        playerDataMap.remove(player.getUniqueId());
+    }
+    public PlayerData getPlayerData(@NotNull Player player){
+        return playerDataMap.get(player.getUniqueId());
     }
 }

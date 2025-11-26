@@ -6,8 +6,10 @@ import com.xdd.serverPlugin.cache.PlayerInputsManager;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
 import com.xdd.serverPlugin.cuboids.camp.settings.guis.SpecificPlayerMenu;
+import com.xdd.serverPlugin.database.data.PlayerData;
 import com.xdd.serverPlugin.records.UuidNick;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -71,7 +73,15 @@ public class PlayerChatListener implements Listener {
 
         SpecificPlayerMenu specificPlayerMenu = new SpecificPlayerMenu(plugin, camp, uuidNick, player);
         specificPlayerMenu.openMenu(player);
-        removeCache(player);
+
+        PlayerData playerData = plugin.getCacheManager().getPlayerData(toAddPlayer);
+        if(playerData == null){
+            toAddPlayer.sendMessage(TextUtils.formatMessage("Nie udało się załadować twoich danych", TextColor.color(0xFF7070)));
+            return false;
+        }
+        playerData.getCampsID().add(camp.getCampID());
+        toAddPlayer.sendMessage(MiniMessage.miniMessage().deserialize("<green>Zostałeś dodany do obozu gracza %s".formatted(camp.getOwnerName())));
+
         return true;
     }
 

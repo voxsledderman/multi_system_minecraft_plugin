@@ -1,25 +1,28 @@
 package com.xdd.serverPlugin.database.data;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.xdd.serverPlugin.database.data.subdatas.economy.EconomyData;
 import lombok.Getter;
-import lombok.Setter;
+import org.bukkit.entity.Player;
 
-@Getter @Setter
-@DatabaseTable(tableName = "player")
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Getter
 public class PlayerData {
+    private final UUID uuid;
+    private final String nickname;
+    private final EconomyData economyData;
+    private final List<Integer> campsID;
 
-    @DatabaseField(id = true, columnName = "uuid")
-    private String playerUuid;
+    public PlayerData(UUID uuid, String nickname, EconomyData economyData, List<Integer> campsID) {
+        this.uuid = uuid;
+        this.nickname = nickname;
+        this.economyData = economyData;
+        this.campsID = campsID;
+    }
 
-    @DatabaseField(columnName = "nickname", unique = true)
-    private String playerNick;
-
-    @DatabaseField(columnName = "economy_data")
-    private String economyData;
-
-    @DatabaseField(columnName = "member_of_camps_id")
-    private String memberOfCampsWithID;
-
-    public PlayerData(){}
+    public static PlayerData getDefaultPlayerData(Player player){
+        return new PlayerData(player.getUniqueId(), player.getName(), new EconomyData(player, 500), new ArrayList<>());
+    }
 }

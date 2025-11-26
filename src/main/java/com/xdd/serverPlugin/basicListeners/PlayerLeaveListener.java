@@ -1,6 +1,7 @@
 package com.xdd.serverPlugin.basicListeners;
 
 import com.xdd.serverPlugin.ServerPlugin;
+import com.xdd.serverPlugin.cache.CacheManager;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ public class PlayerLeaveListener implements Listener {
 
     private final ServerPlugin plugin = ServerPlugin.getInstance();
     private final CampManager campManager = plugin.getCampManager();
+    private final CacheManager cacheManager = plugin.getCacheManager();
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) throws SQLException {
@@ -22,8 +24,10 @@ public class PlayerLeaveListener implements Listener {
         Camp camp = campManager.getPlayerCamp(player);
         camp.setHasTriggeredSpawn(false);
 
-        plugin.getCacheManager().clearPlayerCache(player);
         plugin.getCampDao().save(camp);
-//        plugin.getPlayerDao().save(player);
+        plugin.getPlayerDao().save(cacheManager.getPlayerData(player));
+
+        cacheManager.removeFromDataMap(player);
+        cacheManager.clearPlayerCache(player);
     }
 }
