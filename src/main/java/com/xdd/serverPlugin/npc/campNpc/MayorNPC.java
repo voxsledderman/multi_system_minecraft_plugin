@@ -4,7 +4,6 @@ import com.xdd.serverPlugin.Utils.TextUtils;
 import com.xdd.serverPlugin.cuboids.camp.settings.guis.MainCampMenu;
 import com.xdd.serverPlugin.npc.MythicNPC;
 import net.kyori.adventure.text.format.TextColor;
-
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -27,7 +26,7 @@ public class MayorNPC extends MythicNPC {
             }
             var menu = new MainCampMenu(getPlugin(), campManager.getPlayerCamp(player), player);
             menu.openMenu(player);
-            player.playSound(player, getInteractSound(), 1f,1.2f);
+            menu.playOpenSound();
         };
     }
 

@@ -19,7 +19,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 
-@Command(name = "money", aliases = {"kasa", "hajs", "pieniądze", "pieniadze"})
+@Command(name = "money", aliases = {"balance","bank","kasa", "hajs", "pieniądze", "pieniadze"})
 public class MoneyCommand {
     private final ServerPlugin plugin = ServerPlugin.getInstance();
     private final CacheManager cacheManager = plugin.getCacheManager();

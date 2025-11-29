@@ -9,6 +9,7 @@ import com.xdd.serverPlugin.gui_items.ClickableItem;
 import com.xdd.serverPlugin.gui_items.CloseEqItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -40,7 +41,7 @@ public class MainCampMenu extends Menu {
                         "# . # . # . # . ? ")
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
-                .addIngredient('B', new CloseEqItem())
+                .addIngredient('B', new CloseEqItem(true))
 
                 .addIngredient('U', new ClickableItem(SpecificItems.FromGUI.upgradeCampItem(), new ChoseUpgradeMenu(getPlugin(), camp, player)))
                 .addIngredient('H', new ClickableItem(SpecificItems.FromGUI.yourCampsItem(), new YourCampsMenu(getPlugin(), player, camp)))
@@ -51,5 +52,9 @@ public class MainCampMenu extends Menu {
 
                 ))))
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

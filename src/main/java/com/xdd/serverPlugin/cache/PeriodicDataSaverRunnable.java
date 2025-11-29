@@ -19,13 +19,12 @@ public class PeriodicDataSaverRunnable extends BukkitRunnable {
                 throw new RuntimeException(e);
             }
         }
-        //TODO: Po implementacji playerData odkomentuj
         for(Player player : Bukkit.getOnlinePlayers()){
-//            try {
-//                plugin.getPlayerDao().save(player);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                plugin.getPlayerDao().save(plugin.getCacheManager().getPlayerData(player));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.gui_items.CloseEqItem;
 import com.xdd.serverPlugin.gui_items.PlayerItem;
 import com.xdd.serverPlugin.gui_items.ReturnItem;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -37,7 +38,7 @@ public class PlayerPermMenu extends Menu {
                 )
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
-                .addIngredient('X', new CloseEqItem())
+                .addIngredient('X', new CloseEqItem(true))
                 .addIngredient('B', new ReturnItem(new SettingsCampMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(GuiUtils.infoIcon))
                 .addIngredient('@', new SimpleItem(GuiUtils.blueCrossIcon))
@@ -47,5 +48,9 @@ public class PlayerPermMenu extends Menu {
                 .addIngredient('4', new PlayerItem(camp.getPermissionsPerPlayer(), 4))
                 .addIngredient('5', new PlayerItem(camp.getPermissionsPerPlayer(), 5))
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

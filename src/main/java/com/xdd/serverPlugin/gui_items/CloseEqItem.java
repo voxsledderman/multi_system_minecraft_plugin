@@ -1,7 +1,8 @@
 package com.xdd.serverPlugin.gui_items;
 
-import com.xdd.serverPlugin.Utils.GuiUtils;
 import com.xdd.serverPlugin.SpecificItems;
+import com.xdd.serverPlugin.Utils.GuiUtils;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -10,8 +11,8 @@ import xyz.xenondevs.invui.item.impl.SimpleItem;
 
 public class CloseEqItem extends SimpleItem {
 
-    public CloseEqItem() {
-        super(SpecificItems.FromGUI.closeEqItem());
+    public CloseEqItem(boolean needIcon) {
+        super(needIcon ? SpecificItems.FromGUI.closeEqItem() : GuiUtils.getInvisibleItem("Zamknij sklep", TextColor.color(0xFF7070)));
     }
 
 

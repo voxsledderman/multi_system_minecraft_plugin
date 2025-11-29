@@ -10,9 +10,9 @@ import com.xdd.serverPlugin.gui_items.CloseEqItem;
 import com.xdd.serverPlugin.gui_items.PermissionItem;
 import com.xdd.serverPlugin.gui_items.ReturnItem;
 import com.xdd.serverPlugin.permissions.CampPerms;
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -60,10 +60,14 @@ public class SettingsCampMenu extends Menu {
                         ))))
                 .addIngredient('%', new ClickableItem(SpecificItems.FromGUI.blueXItem(item.effectiveName(), item.lore()), new PlayerPermMenu(getPlugin(), camp, player)))
                 .addIngredient('@', new ClickableItem(item, new PlayerPermMenu(getPlugin(), camp, player)))
-                .addIngredient('X', new CloseEqItem())
+                .addIngredient('X', new CloseEqItem(true))
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }
 

@@ -10,6 +10,7 @@ import com.xdd.serverPlugin.gui_items.ReturnItem;
 import com.xdd.serverPlugin.permissions.CampPerms;
 import com.xdd.serverPlugin.records.UuidNick;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -43,7 +44,7 @@ public class SpecificPlayerMenu extends Menu {
                 )
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
-                .addIngredient('X', new CloseEqItem())
+                .addIngredient('X', new CloseEqItem(true))
                 .addIngredient('B', new ReturnItem(new PlayerPermMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(GuiUtils.infoIcon))
                 .addIngredient('@', new SimpleItem(GuiUtils.blueCrossIcon, click -> {
@@ -69,5 +70,9 @@ public class SpecificPlayerMenu extends Menu {
                 .addIngredient('3', new PermissionItem(camp, CampPerms.SpecialPerms.ALLOW_PLAYING_ALONE, uuidNick))
 
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

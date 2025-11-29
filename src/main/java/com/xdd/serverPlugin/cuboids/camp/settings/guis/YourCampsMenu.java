@@ -8,6 +8,7 @@ import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.gui_items.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.gui.PagedGui;
@@ -54,7 +55,7 @@ public class YourCampsMenu extends Menu {
                             MiniMessage.miniMessage().deserialize("<white>Nie należych do żadnego obozu...")
                     )))
                     .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
-                    .addIngredient('X', new CloseEqItem())
+                    .addIngredient('X', new CloseEqItem(true))
                     .addIngredient('#', GuiUtils.blackGlass)
                     .addIngredient('*', GuiUtils.whiteGlass)
                     .addIngredient('?', SpecificItems.FromGUI.infoItem(List.of(
@@ -78,7 +79,7 @@ public class YourCampsMenu extends Menu {
                 )
                 .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                 .addIngredient('B', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
-                .addIngredient('X', new CloseEqItem())
+                .addIngredient('X', new CloseEqItem(true))
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .addIngredient('?', SpecificItems.FromGUI.infoItem(List.of(
@@ -94,5 +95,9 @@ public class YourCampsMenu extends Menu {
                 .addIngredient('<', new PrevPageItem())
                 .setContent(houseItems)
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

@@ -28,7 +28,7 @@ public class LocationSaveManager {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             try {
-                file.createNewFile(); // tworzy pusty used-locations.yml
+                file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }

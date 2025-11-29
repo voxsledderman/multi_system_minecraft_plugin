@@ -30,9 +30,6 @@ public class CampData {
     @DatabaseField(columnName  = "personal_perms")
     private String personalPerms;
 
-//    @DatabaseField(columnName = "npcs")
-//    private String npcs;
-
     public CampData(){}
 
     public CampData(int id, String spawnLocation, String ownerUuid, String ownerNick, int campLevel, String globalPerms, String personalPerms) {

@@ -37,4 +37,10 @@ public class Money {
     public String formated(){
         return Format.formatMoney(money.doubleValue()) + "$";
     }
+    public String smartFormated(){
+        if(money.doubleValue() < 1000) {
+            return formated();
+        } else return Format.formatMoneyWithK(money.doubleValue());
+
+    }
 }

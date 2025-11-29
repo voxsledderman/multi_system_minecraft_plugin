@@ -66,5 +66,15 @@
       <option name="name" value="maven5" />
       <option name="url" value="https://repo.pyr.lol/snapshots" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="jitpack" />
+      <option name="name" value="jitpack" />
+      <option name="url" value="https://jitpack.io/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="codemc" />
+      <option name="name" value="codemc" />
+      <option name="url" value="https://repo.codemc.io/repository/maven-public/" />
+    </remote-repository>
   </component>
 </project>

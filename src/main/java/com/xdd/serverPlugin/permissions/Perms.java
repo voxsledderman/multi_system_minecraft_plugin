@@ -11,5 +11,6 @@ public class Perms {
     public static final String ALLOW_CAMPS_ADMIN_ACTIONS = "plugin.allow.camps.admin";
     public static final String ALLOW_ALL_MC_ACTIONS_ON_CAMPS = "plugin.unlimited.actions.onCamps";
     public static final String MANIPULATE_PLAYER_BALANCE = "plugin.allow.manipulating.player.balances";
+    public static final String SHOP_ADMIN_ACTIONS = "plugin.shop.admin.actions";
 
 }

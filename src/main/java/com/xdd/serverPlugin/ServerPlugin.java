@@ -7,22 +7,20 @@ import com.xdd.serverPlugin.a_listeners.camp.SpecificCampListeners;
 import com.xdd.serverPlugin.basicListeners.PlayerChatListener;
 import com.xdd.serverPlugin.basicListeners.PlayerJoinListener;
 import com.xdd.serverPlugin.basicListeners.PlayerLeaveListener;
+import com.xdd.serverPlugin.basicListeners.StoppableMoveListener;
 import com.xdd.serverPlugin.cache.*;
+import com.xdd.serverPlugin.commands.admin.GenerateCampsCommand;
 import com.xdd.serverPlugin.commands.admin.TestCommand;
-import com.xdd.serverPlugin.commands.player.CampCommand;
-import com.xdd.serverPlugin.commands.player.MoneyCommand;
+import com.xdd.serverPlugin.commands.player.*;
 import com.xdd.serverPlugin.cuboids.CampListener;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
 import com.xdd.serverPlugin.cuboids.camp.LocationSaveManager;
-import com.xdd.serverPlugin.commands.admin.GenerateCampsCommand;
-import com.xdd.serverPlugin.commands.player.SpawnCommand;
-import com.xdd.serverPlugin.commands.player.TeleportCommand;
 import com.xdd.serverPlugin.database.DatabaseConnection;
 import com.xdd.serverPlugin.database.DatabaseManager;
-import com.xdd.serverPlugin.basicListeners.StoppableMoveListener;
 import com.xdd.serverPlugin.database.dao.CampDao;
 import com.xdd.serverPlugin.database.dao.PlayerDao;
 import com.xdd.serverPlugin.npc.NpcInteractionListener;
+import com.xdd.serverPlugin.shopSystem.config.ShopManager;
 import com.xdd.serverPlugin.tittle.TitleManager;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
@@ -51,6 +49,7 @@ public final class ServerPlugin extends JavaPlugin {
     private DatabaseConnection databaseConnection;
     private CampDao campDao;
     private PlayerDao playerDao;
+    private ShopManager shopManager;
 
     @Override
     public void onEnable() {
@@ -67,6 +66,8 @@ public final class ServerPlugin extends JavaPlugin {
         campManager = new CampManager();
         cacheManager = new CacheManager(this);
         playerInputsManager = new PlayerInputsManager();
+        shopManager = new ShopManager();
+        shopManager.load();
 
         try {
             campDao = new CampDao();
@@ -82,7 +83,8 @@ public final class ServerPlugin extends JavaPlugin {
                         new TeleportCommand(),
                         new CampCommand(),
                         new TestCommand(),
-                        new MoneyCommand()
+                        new MoneyCommand(),
+                        new ShopCommand()
                 )
                 .message(LiteMessages.MISSING_PERMISSIONS, permission -> "§cNie masz permisji na wykonanie tej komendy!")
                 .message(LiteMessages.INVALID_USAGE, invalidUsage ->  "§cNiepoprawne użycie komendy!")

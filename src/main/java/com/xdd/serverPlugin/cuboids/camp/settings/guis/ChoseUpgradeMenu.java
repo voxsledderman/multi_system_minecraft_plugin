@@ -10,6 +10,7 @@ import com.xdd.serverPlugin.gui_items.CloseEqItem;
 import com.xdd.serverPlugin.gui_items.ReturnItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -39,7 +40,7 @@ public class ChoseUpgradeMenu extends Menu {
                         "# * . . * . . * #",
                         "* # F * L * H # *",
                         "R . # . # . # . ?")
-                .addIngredient('B', new CloseEqItem())
+                .addIngredient('B', new CloseEqItem(true))
                 .addIngredient('R', new ReturnItem(new MainCampMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(SpecificItems.FromGUI.infoItem(List.of(
                         Component.text(" "), MiniMessage.miniMessage().deserialize("<white>W tym menu możesz"),
@@ -51,5 +52,10 @@ public class ChoseUpgradeMenu extends Menu {
                 .addIngredient('#', GuiUtils.blackGlass)
                 .addIngredient('*', GuiUtils.whiteGlass)
                 .build();
+    }
+
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

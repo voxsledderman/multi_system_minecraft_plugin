@@ -9,6 +9,7 @@ import com.xdd.serverPlugin.gui_items.CloseEqItem;
 import com.xdd.serverPlugin.gui_items.ReturnItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
@@ -40,7 +41,7 @@ public class UpgradeMenu extends Menu {
                 ". . . . . . . . .",
                 "B . . . . . . . ?"
         )
-                .addIngredient('Q', new CloseEqItem())
+                .addIngredient('Q', new CloseEqItem(true))
                 .addIngredient('B', new ReturnItem(new ChoseUpgradeMenu(getPlugin(), camp, player)))
                 .addIngredient('?', new SimpleItem(SpecificItems.FromGUI.infoItem(List.of(
                         Component.text(" "),
@@ -48,5 +49,9 @@ public class UpgradeMenu extends Menu {
                         MiniMessage.miniMessage().deserialize("<white>i ulepszyć wybraną kategorię")
                 ))))
                 .build();
+    }
+    @Override
+    public void playOpenSound() {
+        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f,1f);
     }
 }

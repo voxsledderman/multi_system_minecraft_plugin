@@ -16,5 +16,4 @@ public class ConstantValues {
 
     public static final NamespacedKey keyForMobCampID = new NamespacedKey(ServerPlugin.getInstance(),"camp_id");
 
-
 }

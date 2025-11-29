@@ -9,16 +9,20 @@ import xyz.xenondevs.invui.window.Window;
 public abstract class Menu {
 
     private final ServerPlugin plugin;
+    private Window window;
 
     public Menu(ServerPlugin plugin) {
         this.plugin = plugin;
     }
 
     public void openMenu(Player player) {
-        Window.single().setViewer(player).setGui(setupGui()).setTitle(setupTitle()).open(player);
+        window = Window.single().setViewer(player).setGui(setupGui()).setTitle(setupTitle()).build();
+        window.open();
     }
 
     public abstract String setupTitle();
 
     public abstract Gui setupGui();
+
+    public abstract void playOpenSound();
 }
