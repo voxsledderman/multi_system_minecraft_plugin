@@ -2,6 +2,7 @@ package com.xdd.serverPlugin.gui_items;
 
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
 import com.xdd.serverPlugin.Utils.TextUtils;
 import com.xdd.serverPlugin.cache.PlayerInputsManager;
 import com.xdd.serverPlugin.cuboids.camp.settings.guis.SpecificPlayerMenu;
@@ -64,7 +65,7 @@ public class PlayerItem extends AbstractItem {
             startChatCheckTask(player, manager);
 
         } else{
-            GuiUtils.playGuiClickSound(player);
+            Sounds.playGuiClickSound(player);
             new SpecificPlayerMenu(plugin, plugin.getCampManager().getPlayerCamp(player), uuidNick, player).openMenu(player);
         }
     }

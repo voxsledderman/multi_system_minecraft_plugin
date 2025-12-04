@@ -2,11 +2,11 @@ package com.xdd.serverPlugin.Utils;
 
 import com.nexomc.nexo.api.NexoItems;
 import com.xdd.serverPlugin.Tooltip;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +42,20 @@ public class GuiUtils {
     public static final ItemStack nextPageIcon = buildCustomItem("arrow_right");
     public static final ItemStack prevPageIcon = buildCustomItem("arrow_left");
     public static final ItemStack refreshIcon = buildCustomItem("refresh");
+    public static final ItemStack alert2Icon = buildCustomItem("alert2");
+    public static final ItemStack nextPageIconNoBackground = buildCustomItem("arrow_right2_1");
+    public static final ItemStack prevPageIconNoBackground = buildCustomItem("arrow_left2_1");
+    public static final ItemStack returnItemNoBackground = buildCustomItem("arrow_left2_2");
+    @Getter public static final ItemStack moneyItem = buildCustomItem("coin");
+
+
+
+    public static final ItemStack rewardsEpic = buildItemWithNormalTooltipAdding("icon_daily_rare_reward", Tooltip.WOODEN);
+    public static final ItemStack rewardsLegendary = buildItemWithNormalTooltipAdding("icon_daily_legendary_reward", Tooltip.WOODEN);
+    public static final ItemStack rewardsNormal = buildItemWithNormalTooltipAdding("icon_daily_gift_unclaimed", Tooltip.WOODEN);
+    public static final ItemStack rewardsClaimed = buildItemWithNormalTooltipAdding("icon_daily_gift_claimed", Tooltip.WOODEN);
+    public static final ItemStack rewardsAwaiting = buildItemWithNormalTooltipAdding("not_ready_box", Tooltip.WOODEN);
+    public static final ItemStack rewardsReady = buildItemWithNormalTooltipAdding("icon_daily_gift_ready", Tooltip.WOODEN);
 
     public static class ShopIcons {
 
@@ -74,17 +88,6 @@ public class GuiUtils {
         return buildItemWithNameLore(getInvisibleItem(),displayName, lore);
     }
 
-    private static class Sounds {
-        private static final String guiClickSoundID = "ui_click";
-        private static final String guiCloseSoundID = "window_close";
-        private static final String permOnSoundID = "ui_permission_on";
-        private static final String permOffSoundID = "ui_permission_off";
-        private static final String cash_register = "cash_register";
-        private static final String grabCoins = "grab_coins";
-        private static final String error_sound = "error_sound";
-    }
-
-
     private static ItemStack buildCustomItem(String id) {
         com.nexomc.nexo.items.ItemBuilder itemBuilder = NexoItems.itemFromId(id);
         if (itemBuilder == null) {
@@ -116,34 +119,13 @@ public class GuiUtils {
         stack.setItemMeta(meta);
         return stack;
     }
-    public static ItemStack buildItemWithNameLore(ItemStack item,Component name, @Nullable List<Component> components){
+    public static ItemStack buildItemWithNameLore(ItemStack item,@Nullable Component name, @Nullable List<Component> components){
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(name);
+        if(name != null) {
+            meta.displayName(name);
+        }
         if(components != null) meta.lore(components);
         item.setItemMeta(meta);
         return item;
     }
-
-    public static void playGuiClickSound(Player player){
-        player.playSound(player, Sounds.guiClickSoundID, 1.25f,1f);
-    }
-    public static void playGuiCloseSound(Player player){
-        player.playSound(player, Sounds.guiCloseSoundID, 0.72f,1f);
-    }
-    public static void playPermOnSound(Player player){
-        player.playSound(player, Sounds.permOnSoundID, 1f,1f);
-    }
-    public static void playPermOffSound(Player player){
-        player.playSound(player, Sounds.permOffSoundID, 0.88f,1f);
-    }
-    public static void playCashRegisterSound(Player player){
-        player.playSound(player, Sounds.cash_register, 0.7f,1f);
-    }
-    public static void playGrabCoinsSound(Player player){
-        player.playSound(player, Sounds.grabCoins, 1f,1f);
-    }
-    public static void playErrorSound(Player player){
-        player.playSound(player, Sounds.error_sound, 0.65f,1f);
-    }
-
 }

@@ -4,6 +4,7 @@ import com.xdd.serverPlugin.Menu;
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.Format;
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
 import com.xdd.serverPlugin.gui_items.ClickableItem;
 import com.xdd.serverPlugin.shopSystem.ShopActions;
 import com.xdd.serverPlugin.shopSystem.ShopOffer;
@@ -73,12 +74,10 @@ public class ChoseAmountMenu extends Menu {
                         MiniMessage.miniMessage().deserialize(
                                 "<bold><#38A94A>Kliknij aby kupić <white>x" + amount
                         ),    List.of(
-                                MiniMessage.miniMessage().deserialize("<#E9C558>Cena kupna: <white>%s$".formatted(Format.formatMoney(offer.getSellPrice() * amount))),
+                                MiniMessage.miniMessage().deserialize("<#E9C558>Cena kupna: <white>%s$".formatted(Format.formatMoney(offer.getBuyPrice() * amount))),
                                 Component.text(" "),
                                 MiniMessage.miniMessage().deserialize("<glyph:shop_left_click><dark_green> kliknij aby potwierdzić")
-                        )), click -> {
-                    ShopActions.buyItem(offer, player, amount, shopMenu);
-                }))
+                        )), click -> ShopActions.buyItem(offer, player, amount, shopMenu)))
 
 
                 .addIngredient('S', new SimpleItem(GuiUtils.getInvisibleItem(
@@ -89,9 +88,7 @@ public class ChoseAmountMenu extends Menu {
                                 MiniMessage.miniMessage().deserialize("<#E9C558>Cena sprzedaży: <white>%s$".formatted(Format.formatMoney(offer.getSellPrice() * amount))),
                                 Component.text(" "),
                                 MiniMessage.miniMessage().deserialize("<glyph:shop_left_click><dark_green> kliknij aby potwierdzić")
-                        )), click -> {
-                    ShopActions.sellItem(offer, player, amount, shopMenu);
-                }))
+                        )), click -> ShopActions.sellItem(offer, player, amount, shopMenu)))
 
                 .build();
     }
@@ -112,7 +109,7 @@ public class ChoseAmountMenu extends Menu {
         return new SimpleItem(visualItem, click -> {
             int newAmount = amountCalculator(changeAmount);
             new ChoseAmountMenu(getPlugin(), offer, shopMenu, player, newAmount).openMenu(player);
-            GuiUtils.playGuiClickSound(player);
+            Sounds.playGuiClickSound(player);
         });
     }
 
@@ -129,6 +126,6 @@ public class ChoseAmountMenu extends Menu {
 
     @Override
     public void playOpenSound() {
-        GuiUtils.playGuiClickSound(player);
+        Sounds.playGuiClickSound(player);
     }
 }

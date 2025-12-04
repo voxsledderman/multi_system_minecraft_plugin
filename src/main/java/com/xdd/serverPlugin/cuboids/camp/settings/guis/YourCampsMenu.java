@@ -2,8 +2,9 @@ package com.xdd.serverPlugin.cuboids.camp.settings.guis;
 
 import com.xdd.serverPlugin.Menu;
 import com.xdd.serverPlugin.ServerPlugin;
-import com.xdd.serverPlugin.SpecificItems;
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
+import com.xdd.serverPlugin.Utils.SpecificItems;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.gui_items.*;
 import net.kyori.adventure.text.Component;
@@ -64,7 +65,7 @@ public class YourCampsMenu extends Menu {
                             MiniMessage.miniMessage().deserialize("<white>do których należysz")
                     )))
                     .addIngredient('R', new SimpleItem(SpecificItems.FromGUI.refreshItem(), click -> {
-                        GuiUtils.playGuiClickSound(player);
+                        Sounds.playGuiClickSound(player);
                         this.openMenu(player);
                     }))
                     .addIngredient('>', new SimpleItem(GuiUtils.nextPageIcon))
@@ -88,11 +89,11 @@ public class YourCampsMenu extends Menu {
                         MiniMessage.miniMessage().deserialize("<white>do których należysz")
                 )))
                 .addIngredient('R', new SimpleItem(SpecificItems.FromGUI.refreshItem(), click -> {
-                    GuiUtils.playGuiClickSound(player);
+                    Sounds.playGuiClickSound(player);
                     this.openMenu(player);
                 }))
-                .addIngredient('>', new NextPageItem())
-                .addIngredient('<', new PrevPageItem())
+                .addIngredient('>', new NextPageItem(SpecificItems.FromGUI.nextPageItem(), GuiUtils.whiteGlass.getItemProvider().get()))
+                .addIngredient('<', new PrevPageItem(SpecificItems.FromGUI.prevPageItem(), GuiUtils.whiteGlass.getItemProvider().get()))
                 .setContent(houseItems)
                 .build();
     }

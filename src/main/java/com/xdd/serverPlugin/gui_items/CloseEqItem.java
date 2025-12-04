@@ -1,7 +1,8 @@
 package com.xdd.serverPlugin.gui_items;
 
-import com.xdd.serverPlugin.SpecificItems;
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
+import com.xdd.serverPlugin.Utils.SpecificItems;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -19,6 +20,6 @@ public class CloseEqItem extends SimpleItem {
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         player.closeInventory();
-        GuiUtils.playGuiCloseSound(player);
+        Sounds.playGuiCloseSound(player);
     }
 }

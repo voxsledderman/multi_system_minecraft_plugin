@@ -1,6 +1,7 @@
 package com.xdd.serverPlugin.gui_items;
 
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.tittle.subclasses.CountdownTitle;
 import lombok.Getter;
@@ -36,6 +37,6 @@ public class HouseItem extends AbstractItem {
     @Override
     public void handleClick(@NotNull ClickType clickType, @NotNull Player player, @NotNull InventoryClickEvent inventoryClickEvent) {
         CountdownTitle.doCampCountdown(player, camp);
-        GuiUtils.playGuiClickSound(player);
+        Sounds.playGuiClickSound(player);
     }
 }

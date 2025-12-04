@@ -4,6 +4,7 @@ import com.xdd.serverPlugin.Menu;
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.Format;
 import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
 import com.xdd.serverPlugin.database.data.subdatas.economy.EconomyData;
 import com.xdd.serverPlugin.gui_items.*;
 import com.xdd.serverPlugin.shopSystem.ShopOffer;
@@ -104,8 +105,8 @@ public class MainShopMenu extends Menu {
                     .addIngredient('2', new ClickableItem(GuiUtils.getInvisibleItem("Następna strona", TextColor.color(0xFFFFFF)),
                             new MainShopMenu(plugin, ShopCategory.REDSTONE_BLOCKS, player, true)
                     ))
-                    .addIngredient('>', new NextPageItem(false, this))
-                    .addIngredient('<', new PrevPageItem(false, this))
+                    .addIngredient('>', new NextPageItem(this, GuiUtils.getInvisibleItem(), null))
+                    .addIngredient('<', new PrevPageItem(this, GuiUtils.getInvisibleItem(), null))
                     .addIngredient('i', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                     .setContent(items)
                     .build();
@@ -131,8 +132,8 @@ public class MainShopMenu extends Menu {
                     .addIngredient('2', new ClickableItem(GuiUtils.getInvisibleItem("Następna strona", TextColor.color(0xFFFFFF)),
                             new MainShopMenu(plugin, ShopCategory.REDSTONE_BLOCKS, player, true)
                             ))
-                    .addIngredient('>', new NextPageItem(false, this))
-                    .addIngredient('<', new PrevPageItem(false, this))
+                    .addIngredient('>', new NextPageItem(this, GuiUtils.getInvisibleItem(), null))
+                    .addIngredient('<', new PrevPageItem(this, GuiUtils.getInvisibleItem(), null))
                     .addIngredient('i', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                     .setContent(items)
                     .build();
@@ -159,8 +160,8 @@ public class MainShopMenu extends Menu {
                     .addIngredient('1', new ClickableItem(GuiUtils.getInvisibleItem("Poprzednia strona", TextColor.color(0xFFFFFF)),
                             new MainShopMenu(plugin, ShopCategory.OTHER, player,false))
                             )
-                    .addIngredient('>', new NextPageItem(false, this))
-                    .addIngredient('<', new PrevPageItem(false, this))
+                    .addIngredient('>', new NextPageItem(this, GuiUtils.getInvisibleItem(), null))
+                    .addIngredient('<', new PrevPageItem(this, GuiUtils.getInvisibleItem(), null))
                     .addIngredient('i', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                     .setContent(items)
                     .build();
@@ -174,7 +175,7 @@ public class MainShopMenu extends Menu {
 
     @Override
     public void playOpenSound() {
-        GuiUtils.playCashRegisterSound(player);
+        Sounds.playCashRegisterSound(player);
     }
 
     private ItemProvider addElementsToVisualItem(ShopOffer offer){

@@ -1,7 +1,7 @@
 package com.xdd.serverPlugin.gui_items;
 
-import com.xdd.serverPlugin.SpecificItems;
-import com.xdd.serverPlugin.Utils.GuiUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
+import com.xdd.serverPlugin.Utils.SpecificItems;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.records.UuidNick;
 import org.bukkit.entity.Player;
@@ -52,20 +52,20 @@ public class PermissionItem extends AbstractItem {
 
           if (isPermTrue) {
               camp.getPermissions().add(permission);
-              GuiUtils.playPermOnSound(player);
+              Sounds.playPermOnSound(player);
           } else {
               camp.getPermissions().remove(permission);
-              GuiUtils.playPermOffSound(player);
+              Sounds.playPermOffSound(player);
           }
       } else {
           List<String> perms = camp.getPermissionsPerPlayer().computeIfAbsent(uuidNick, k -> new ArrayList<>());
 
           if (isPermTrue) {
               if (!perms.contains(permission)) perms.add(permission);
-              GuiUtils.playPermOnSound(player);
+              Sounds.playPermOnSound(player);
           } else {
               perms.remove(permission);
-              GuiUtils.playPermOffSound(player);
+              Sounds.playPermOffSound(player);
           }
       }
         notifyWindows();

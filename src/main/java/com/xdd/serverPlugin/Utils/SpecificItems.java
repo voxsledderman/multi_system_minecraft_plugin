@@ -1,7 +1,5 @@
-package com.xdd.serverPlugin;
+package com.xdd.serverPlugin.Utils;
 
-import com.xdd.serverPlugin.Utils.GuiUtils;
-import com.xdd.serverPlugin.Utils.ItemUtil;
 import com.xdd.serverPlugin.permissions.CampPerms;
 import com.xdd.serverPlugin.records.UuidNick;
 import net.kyori.adventure.text.Component;

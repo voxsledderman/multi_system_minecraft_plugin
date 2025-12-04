@@ -12,7 +12,7 @@ import dev.rollczi.litecommands.annotations.permission.Permission;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@Command(name = "sklep", aliases = "shop, skl")
+@Command(name = "sklep", aliases = {"shop", "skl"})
 public class ShopCommand {
     private final ServerPlugin plugin = ServerPlugin.getInstance();
 

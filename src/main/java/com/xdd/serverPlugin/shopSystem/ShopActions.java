@@ -2,8 +2,8 @@ package com.xdd.serverPlugin.shopSystem;
 
 import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.Utils.Format;
-import com.xdd.serverPlugin.Utils.GuiUtils;
 import com.xdd.serverPlugin.Utils.PlayerUtils;
+import com.xdd.serverPlugin.Utils.Sounds;
 import com.xdd.serverPlugin.database.data.subdatas.economy.EconomyData;
 import com.xdd.serverPlugin.database.data.subdatas.economy.Money;
 import com.xdd.serverPlugin.shopSystem.menus.ChoseAmountMenu;
@@ -15,37 +15,39 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShopActions {
 
-    public static void buyItem(ShopOffer offer, Player player, int amount, MainShopMenu menu){
-        if(amount < 1) return;
+    public static boolean buyItem(ShopOffer offer, Player player, int amount, MainShopMenu menu){
+        if(amount < 1) return false;
         final EconomyData economyData = menu.getEconomyData();
         Money money = economyData.getMoney();
         double payment = offer.getBuyPrice() * amount;
         if(!money.canMakePayment(payment)){
             player.sendMessage(Component.text("Brakuje ci pieniędzy aby dokonać tego zakupu!").color(TextColor.color(0xFF7070)));
-            GuiUtils.playErrorSound(player);
-            return;
+            Sounds.playErrorSound(player);
+            return false;
         } else if(!PlayerUtils.canPlayerInventoryFit(player.getInventory(), offer.getItemStack(amount))){
             player.sendMessage(Component.text("Nie masz wystarczająco miejsca w ekwipunku!").color(TextColor.color(0xFF7070)));
-            GuiUtils.playErrorSound(player);
-            return;
+            Sounds.playErrorSound(player);
+            return false;
         }
         handleBuy(offer, money, player, payment, amount, menu);
-        GuiUtils.playCashRegisterSound(player);
+        Sounds.playCashRegisterSound(player);
+        return true;
     }
 
-    public static void sellItem(ShopOffer offer, Player player, int amount, MainShopMenu menu) {
-        if (amount < 1) return;
+    public static boolean sellItem(ShopOffer offer, Player player, int amount, MainShopMenu menu) {
+        if (amount < 1) return false;
         final EconomyData economyData = menu.getEconomyData();
 
         ItemStack itemForSell = offer.getItemStack(amount);
 
         if (!PlayerUtils.doesPlayerHaveItemInEq(player.getInventory(), itemForSell)) {
             player.sendMessage(Component.text("Nie masz tego przedmiotu w ekwipunku!").color(TextColor.color(0xFF7070)));
-            GuiUtils.playErrorSound(player);
-            return;
+            Sounds.playErrorSound(player);
+            return false;
         }
         handleSell(offer, player, economyData, amount, menu);
-        GuiUtils.playGrabCoinsSound(player);
+        Sounds.playGrabCoinsSound(player);
+        return true;
 
     }
     public static void choseAmount(ShopOffer offer, Player player, MainShopMenu menu){

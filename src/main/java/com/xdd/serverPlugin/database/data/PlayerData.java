@@ -1,5 +1,6 @@
 package com.xdd.serverPlugin.database.data;
 
+import com.xdd.serverPlugin.database.data.subdatas.DailyRewardData;
 import com.xdd.serverPlugin.database.data.subdatas.economy.EconomyData;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -13,16 +14,19 @@ public class PlayerData {
     private final UUID uuid;
     private final String nickname;
     private final EconomyData economyData;
+    private final DailyRewardData dailyRewardData;
     private final List<Integer> campsID;
 
-    public PlayerData(UUID uuid, String nickname, EconomyData economyData, List<Integer> campsID) {
+    public PlayerData(UUID uuid, String nickname, EconomyData economyData, DailyRewardData rewardData, List<Integer> campsID) {
         this.uuid = uuid;
         this.nickname = nickname;
         this.economyData = economyData;
+        this.dailyRewardData = rewardData;
         this.campsID = campsID;
     }
 
     public static PlayerData getDefaultPlayerData(Player player){
-        return new PlayerData(player.getUniqueId(), player.getName(), new EconomyData(player, 500), new ArrayList<>());
+        return new PlayerData(player.getUniqueId(), player.getName(), new EconomyData(player, 500),
+                new DailyRewardData(null, new ArrayList<>(), 0),new ArrayList<>());
     }
 }

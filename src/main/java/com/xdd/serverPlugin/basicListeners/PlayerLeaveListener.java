@@ -4,6 +4,7 @@ import com.xdd.serverPlugin.ServerPlugin;
 import com.xdd.serverPlugin.cache.CacheManager;
 import com.xdd.serverPlugin.cuboids.camp.Camp;
 import com.xdd.serverPlugin.cuboids.camp.CampManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,16 +19,33 @@ public class PlayerLeaveListener implements Listener {
     private final CacheManager cacheManager = plugin.getCacheManager();
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e) throws SQLException {
+    public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-
         Camp camp = campManager.getPlayerCamp(player);
-        camp.setHasTriggeredSpawn(false);
+        if(camp != null) {
+            camp.setHasTriggeredSpawn(false);
+        }
 
-        plugin.getCampDao().save(camp);
-        plugin.getPlayerDao().save(cacheManager.getPlayerData(player));
+        saveToDatabaseAsync(player, camp);
+    }
 
-        cacheManager.removeFromDataMap(player);
-        cacheManager.clearPlayerCache(player);
+    private void saveToDatabaseAsync(Player player, Camp camp){
+        Bukkit.getScheduler().runTaskAsynchronously(ServerPlugin.getInstance(), asyncTask -> {
+            try {
+                if(camp != null) {
+                    plugin.getCampDao().save(camp);
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            try {
+                plugin.getPlayerDao().save(cacheManager.getPlayerData(player));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            cacheManager.removeFromDataMap(player);
+            cacheManager.clearPlayerCache(player);
+        });
     }
 }

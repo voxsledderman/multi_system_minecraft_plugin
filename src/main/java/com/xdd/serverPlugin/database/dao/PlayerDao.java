@@ -24,7 +24,8 @@ public class PlayerDao {
     }
 
     public void save(PlayerData playerData) throws SQLException {
-        playerDataDao.createOrUpdate(new PlayerJsonData(playerData.getUuid(), playerData.getNickname(), playerData.getEconomyData(), playerData.getCampsID()));
+        playerDataDao.createOrUpdate(new PlayerJsonData(playerData.getUuid(), playerData.getNickname(), playerData.getEconomyData(),
+                playerData.getDailyRewardData(), playerData.getCampsID()));
     }
     public boolean playerExists(Player player) throws SQLException {
         return playerDataDao.idExists(player.getUniqueId().toString());
