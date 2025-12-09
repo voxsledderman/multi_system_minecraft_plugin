@@ -36,6 +36,6 @@ public class Sounds {
         player.playSound(player, error_sound, 0.65f,1f);
     }
     public static void playItemClaimSound(Player player){
-        player.playSound(player, claim_item, 0.35f, 1f);
+        player.playSound(player, claim_item, 0.5f, 1f);
     }
 }

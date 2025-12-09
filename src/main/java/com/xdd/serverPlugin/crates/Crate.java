@@ -38,7 +38,7 @@ public abstract class Crate {
             }
             if(iconItem == null) continue;
             itemRewards.add(new SimpleItem(GuiUtils.buildItemWithNameLore(iconItem, null, List.of(
-                    MiniMessage.miniMessage().deserialize("<gray>sᴢᴀɴsᴀ ɴᴀ ᴅʀᴏᴘᴀ: <dark_green>%.2f".formatted(reward.getPercentage())  + "%")
+                    MiniMessage.miniMessage().deserialize("<gray>szansa na dropa: <dark_green>%.2f".formatted(reward.getPercentage())  + "%")
             ))));
         }
     }

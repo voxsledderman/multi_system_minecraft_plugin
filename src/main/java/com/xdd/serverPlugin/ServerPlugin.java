@@ -84,7 +84,8 @@ public final class ServerPlugin extends JavaPlugin {
                         new CampCommand(),
                         new TestCommand(),
                         new MoneyCommand(),
-                        new ShopCommand()
+                        new ShopCommand(),
+                        new MsgCommand()
                 )
                 .message(LiteMessages.MISSING_PERMISSIONS, permission -> "§cNie masz permisji na wykonanie tej komendy!")
                 .message(LiteMessages.INVALID_USAGE, invalidUsage ->  "§cNiepoprawne użycie komendy!")

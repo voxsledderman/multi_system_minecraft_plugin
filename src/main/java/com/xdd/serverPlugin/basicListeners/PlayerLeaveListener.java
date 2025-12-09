@@ -44,8 +44,13 @@ public class PlayerLeaveListener implements Listener {
                 throw new RuntimeException(ex);
             }
 
-            cacheManager.removeFromDataMap(player);
-            cacheManager.clearPlayerCache(player);
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (player.isOnline()) {
+                    plugin.getCacheManager().removeFromDataMap(player);
+                    plugin.getCacheManager().clearPlayerCache(player);
+                }
+            });
+
         });
     }
 }
