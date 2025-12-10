@@ -12,6 +12,8 @@ public class Sounds {
     private static final String grabCoins = "grab_coins";
     private static final String error_sound = "error_sound";
     private static final String claim_item = "claim_item";
+    private static final String receive_msg = "receive_msg";
+    private static final String send_msg = "send_msg";
 
 
     public static void playGuiClickSound(Player player){
@@ -37,5 +39,11 @@ public class Sounds {
     }
     public static void playItemClaimSound(Player player){
         player.playSound(player, claim_item, 0.5f, 1f);
+    }
+    public static void playMsgReceive(Player player){
+        player.playSound(player, receive_msg, 0.8f,1f);
+    }
+    public static void playMsgSend(Player player){
+        player.playSound(player, send_msg, 0.8f,1f);
     }
 }
