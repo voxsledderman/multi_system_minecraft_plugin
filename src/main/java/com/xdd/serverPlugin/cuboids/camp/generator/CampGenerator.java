@@ -82,7 +82,6 @@ public class CampGenerator {
                 if(pasteTask == null) {
                     pasteTask = this;
                 }
-
                 // Sprawdź, czy zakończono
                 if (schematicsStarted >= amount) {
                     MessageUtils.sendToPlayerAndConsole(player, TextUtils.formatMessage(

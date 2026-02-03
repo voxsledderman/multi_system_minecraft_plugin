@@ -95,7 +95,7 @@ tasks {
         mergeServiceFiles()
         outputs.upToDateWhen { false }
         archiveFileName.set("serverPlugin.jar")
-        destinationDirectory.set(file("C:/Users/PC/Desktop/spawn/plugins"))
+        destinationDirectory.set(file("/home/voxsledderman/Pulpit/spawn/plugins"))
     }
 }
 
